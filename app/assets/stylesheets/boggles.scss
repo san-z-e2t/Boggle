@@ -5,5 +5,58 @@
 @import "bootstrap";
 
 .scoreDiv{
-	margin-top:10px;
+	margin-top:20px;
+
+}
+
+#reloadBtn{
+	border: 2px solid red;
+  	border-radius: 20px 2px;
+  	background-color: #4CAF50;
+	  color: white;
+	  padding: 7px 7px;
+	  text-align: center;
+	  display: inline-block;
+	  font-size: 20px !important;
+	  margin-bottom: 10px;
+	 
+}
+
+.container{
+	padding:0.01em 16px;
+	align:center;
+	background-color: lightyellow;
+
+}
+.container:after, container:before
+{
+	content:"";
+	display:table;
+	clear:both;
+}
+.header{
+	background-color: #d2d7d0;
+	text-align:center;
+}
+#boggleForm, #boggleForm .divInClass {
+	display: table;
+  	margin: 0 auto;
+  	text-align:center;
+}
+
+div{
+	margin-top: 10px !important;
+}
+
+.txtWord{
+	border-color: burlywood;
+	border-radius: 5px 4px;
+}
+.scoreTable{
+	line-height: 10px;
+	width:50%;
+	margin:auto;
+}
+.puzzleTable{
+	margin:auto;
 }

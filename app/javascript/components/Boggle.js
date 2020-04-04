@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import ReactDOM from "react-dom";
-
+import {Router,Switch} from 'react-router-dom'
 class Boggle extends Component{
 
 	constructor(props){
 		super(props)
 		this.state={
+			 minutes: 1,
+        	 seconds: 0,
 			 r1c1:'A',
 			 r1c2:'B',
 			 r1c3:'C',
@@ -23,11 +25,14 @@ class Boggle extends Component{
 			 r4c3:'O',
 			 r4c4:'P',
 			 word: '',
-			 click_allow_cells:[],
+			 //temp_click_allow_cells:[],
+			 //empty_array:[],
+			 click_allow_cells:['r1c1', 'r1c2', 'r1c3', 'r1c4', 'r2c1', 'r2c2', 'r2c3', 'r2c4','r3c1', 'r3c2', 'r3c3', 'r3c4', 'r4c1', 'r4c2', 'r4c3', 'r4c4' ],
 			 word_and_score: {},
-    		 word: "",
+    		 typed_word: "",
     		 score: 0,
-    		 total_score:0
+    		 total_score:0, 
+    		 clickedCell:[]
 		}
 	}
 
@@ -39,71 +44,117 @@ class Boggle extends Component{
 		})
 		//this.state.total_score+=parseInt(this.state.score);
 		//alert(this.state.total_score);
-	}
-	handleKeyPress =event=>{
-		//alert('on key press');
-		this.setState({
-			word: event.target.value.toUpperCase()
-		})
-		const clickedCell=[];
-		const letter_presence=false;	
-		for (let i = 1; i <= 4; i++) 
-		{			
-			for (let j = 1; j <= 4; j++)
-			{
-				const str='r'+i+'c'+j;
+	} // end of handle word
 
-				if(this.state[str]==event.key.toUpperCase())
+	handleKeyPress =event=>{
+		let temp_click_allow_cells=[];
+		let str="";
+		let letter_presence=false;
+		// alert('clicked cells:'+this.state.clickedCell);
+		// alert('click allow cells:'+this.state.click_allow_cells);	
+		for (let i = 1; i <= 4; i++) 
+		{	
+			for (let j = 1; j <= 4; j++)
+			{	
+				let str='';
+				str='r'+i+'c'+j;
+				
+				if(this.state[str]==event.key.toUpperCase() && !this.state.clickedCell.includes(str))
 				{
-					this.setState({
-						click_allow_cells: []			
-						})
-					clickedCell.push(str); 
-					letter_presence=true;
-					const plus_i=i+1;	
-					const plus_j=j+1;
-					const minus_i=i-1;
-					const minus_j=j-1;
-					
-					const cac1='r'+minus_i+'c'+minus_j;
-					const cac2='r'+minus_i+'c'+j;
-					const cac3='r'+minus_i+'c'+plus_j;
-					const cac4='r'+i+'c'+minus_j;
-					const cac5='r'+i+'c'+plus_j;
-					const cac6='r'+plus_i+'c'+minus_j;
-					const cac7='r'+plus_i+'c'+j;					
-					const cac8='r'+plus_i+'c'+plus_j;
-						alert (this.state[cac1]); // output is alphabet
-					if (this.state[cac1] !==undefined && !this.state.click_allow_cells.includes(cac1)){this.state.click_allow_cells.push(cac1);}
-					if (this.state[cac2] !==undefined && !this.state.click_allow_cells.includes(cac2)){this.state.click_allow_cells.push(cac2);}
-					if (this.state[cac3] !==undefined && !this.state.click_allow_cells.includes(cac3)){this.state.click_allow_cells.push(cac3);}
-					if (this.state[cac4] !==undefined && !this.state.click_allow_cells.includes(cac4)){this.state.click_allow_cells.push(cac4);}
-					if (this.state[cac5] !==undefined && !this.state.click_allow_cells.includes(cac5)){this.state.click_allow_cells.push(cac5);}
-					if (this.state[cac6] !==undefined && !this.state.click_allow_cells.includes(cac6)){this.state.click_allow_cells.push(cac6);}
-					if (this.state[cac7] !==undefined && !this.state.click_allow_cells.includes(cac7)){this.state.click_allow_cells.push(cac7);}
-					if (this.state[cac8] !==undefined && !this.state.click_allow_cells.includes(cac8)){this.state.click_allow_cells.push(cac8);}
+					// console.log(str);
+					// console.log(this.state.clickedCell);
+					// console.log(this.state.click_allow_cells);
+					// alert(str+' '+ !this.state.clickedCell.includes(str) +' in clickedcell');
+					// alert(str+' '+ this.state.click_allow_cells.includes(str) +' in click_allow_cells');
+					// alert(str+' in '+ this.state.click_allow_cells);
+					// alert(str +' letter: '+event.key.toUpperCase()+ ' include in '+this.state.click_allow_cells);
+					if (this.state.click_allow_cells.includes(str))
+					{
+						//alert(str+' in '+ this.state.click_allow_cells);
+						letter_presence=true;
+						
+						this.state.clickedCell.push(str); 
+						
+						const plus_i=i+1;	
+						const plus_j=j+1;
+						const minus_i=i-1;
+						const minus_j=j-1;
+						
+						const cac1='r'+minus_i+'c'+minus_j;
+						const cac2='r'+minus_i+'c'+j;
+						const cac3='r'+minus_i+'c'+plus_j;
+						const cac4='r'+i+'c'+minus_j;
+						const cac5='r'+i+'c'+plus_j;
+						const cac6='r'+plus_i+'c'+minus_j;
+						const cac7='r'+plus_i+'c'+j;					
+						const cac8='r'+plus_i+'c'+plus_j;
+						//alert(cac1);
+						 //alert (this.state[cac1]); // output is alphabet
+						//alert('here '+temp_click_allow_cells);
+						if (this.state[cac1] !==undefined && !temp_click_allow_cells.includes(cac1)){temp_click_allow_cells.push(cac1);}
+						if (this.state[cac3] !==undefined && !temp_click_allow_cells.includes(cac3)){temp_click_allow_cells.push(cac3);}
+						if (this.state[cac2] !==undefined && !temp_click_allow_cells.includes(cac2)){temp_click_allow_cells.push(cac2);}
+						if (this.state[cac4] !==undefined && !temp_click_allow_cells.includes(cac4)){temp_click_allow_cells.push(cac4);}
+						if (this.state[cac5] !==undefined && !temp_click_allow_cells.includes(cac5)){temp_click_allow_cells.push(cac5);}
+						if (this.state[cac6] !==undefined && !temp_click_allow_cells.includes(cac6)){temp_click_allow_cells.push(cac6);}
+						if (this.state[cac7] !==undefined && !temp_click_allow_cells.includes(cac7)){temp_click_allow_cells.push(cac7);}
+						if (this.state[cac8] !==undefined && !temp_click_allow_cells.includes(cac8)){temp_click_allow_cells.push(cac8);}
+						//alert (temp_click_allow_cells);
+					}
+					// else
+					// {
+					// 	alert('not allowed to click this.');
+					// 	event.preventDefault();	
+					// }
 					
 				}
 											
 			}   
 			
   		}
-  		alert(this.state.click_allow_cells);
+
   		if(letter_presence==false)
   		{
-  			alert('The letter you just typed does not exist. Please try again.');
+  			alert('You are not allowed to enter this letter. Please try again.');
   			event.preventDefault();
   		}
-	}
+  		else
+  		{
+  			const {click_allow_cells}=this.state;
+  			
+  			//clear state array
+  			click_allow_cells.length=0;  
+  			
+  			//copy from temp array  to final click_allow_cells
+  			
+  			var joined = temp_click_allow_cells;
+  			this.setState({
+		        	 click_allow_cells: joined
+		     	})
 
-	handleSubmit=event=>{
-		//alert (this.state.total_score);
-		
+		   //console.log(temp_click_allow_cells);
+		   //console.log(this.state.click_allow_cells);
+
+  			//alert('cac2: '+ this.state.click_allow_cells);
+  			// copy ends
+
+  			//clear temp array
+  			
+  			temp_click_allow_cells=[];			
+  		}
+  		
+		//alert ('allowed cells: '+ this.state.click_allow_cells );
+		//alert('last clicked cells:'+this.state.clickedCell);
+  		
+	} // end of handle keypress
+
+	handleSubmit=event=>{		
 		event.preventDefault();
-		const { word_and_score, word, score, total_score } = this.state;
+		const { word_and_score, word, score, total_score, click_allow_cells, clickedCell } = this.state;
     	const new_word_score = { [word]: [score] };
 	    this.setState(
 		      {
+		      	click_allow_cells:['r1c1', 'r1c2', 'r1c3', 'r1c4', 'r2c1', 'r2c2', 'r2c3', 'r2c4','r3c1', 'r3c2', 'r3c3', 'r3c4', 'r4c1', 'r4c2', 'r4c3', 'r4c4' ],
 		        word_and_score: { ...word_and_score, ...new_word_score },
 		        total_score:total_score+score,
 		        word: "",
@@ -111,7 +162,11 @@ class Boggle extends Component{
 		      },
 		      () => console.log(this.state.word_and_score)
 	      );
-    }
+	    
+	    clickedCell.length=0;
+	    // alert(this.state.click_allow_cells);
+	    // alert(this.state.clickedCell);
+    } // end of handle submit
 
 	finalList = () => {
 	    const { word_and_score } = this.state;
@@ -132,7 +187,8 @@ class Boggle extends Component{
 		      <div className="scoreDiv" >
 		        {list.length > 0 ? (
 
-		          <table className=" table-bordered table-condensed">
+		          <table className="scoreTable table table-bordered table-condensed">
+		          <caption>Score Board</caption>
 		          <tr>
 		          	
 		          	   <th> Word </th>
@@ -154,14 +210,48 @@ class Boggle extends Component{
 		        )}
 		      </div>
     	);
-	};
+	}; //end of final list
 
+	 componentDidMount() {
+        this.myInterval = setInterval(() => {
+            const { seconds, minutes } = this.state
+
+            if (seconds > 0) {
+                this.setState(({ seconds }) => ({
+                    seconds: seconds - 1
+                }))
+            }
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(this.myInterval)
+
+                } else {
+                    this.setState(({ minutes }) => ({
+                        minutes: minutes - 1,
+                        seconds: 59
+                    }))
+                }
+            } 
+        }, 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.myInterval)
+    }
 
 	render(){
+		const { minutes, seconds } = this.state
 		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
-					<table className="table-bordered" >
+			<div className="container"> 
+				<div className="header">
+					{ minutes === 0 && seconds === 0
+	                    ? <h1>Timeout!&nbsp; &nbsp; &nbsp; &nbsp;<button id="reloadBtn" onClick={() => window.location.reload(false)}>Click to play again!</button></h1>
+	                    : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
+	                }
+            	</div>
+				<form id="boggleForm" onSubmit={this.handleSubmit}>
+				<div class="divInClass">
+					<table className="table puzzleTable table-bordered" >
 						<tr>
 							<td>
 								<label id="r1c1" className="btn btn-warning">{this.state.r1c1}</label>
@@ -221,12 +311,13 @@ class Boggle extends Component{
 					</table>
 
 					<div>
-						<label>Type a word as you see in above table : &nbsp;</label>
-						<input type="text" value={this.state.word} onKeyPress ={this.handleKeyPress} onChange={this.handleWord}/>
+						<p>Type a word as you see in above table  &nbsp;</p>
+						<input type="text" className="txtWord" value={this.state.word} onKeyPress ={this.handleKeyPress} onChange={this.handleWord}/>
 					</div>
 					<div>
-						<button type="submit"  className="btn btn-primary">Submit</button>
+						<button type="submit" disabled={minutes === 0 && seconds === 0} className="btn btn-primary">Submit</button>
 					</div>
+				</div>
 				</form>
 			
         		{this.finalList()}

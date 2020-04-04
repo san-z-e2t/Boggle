@@ -15,4 +15,8 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+//commented by Sanjeet
+
+//import "@fontawesome/fontawesome-free/js/all";
+//console.log('Hello World from Webpacker')
+

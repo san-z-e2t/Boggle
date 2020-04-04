@@ -11,7 +11,10 @@ import Boggle from '../components/Boggle'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Boggle />,
+  	<Router>
+  		<Route path="/" component={Boggle}/>
+  	</Router>,
+    
     document.body.appendChild(document.createElement('div')),
   )
 })
