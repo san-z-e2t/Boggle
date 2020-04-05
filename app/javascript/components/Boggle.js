@@ -32,9 +32,13 @@ class Boggle extends Component{
     		 typed_word: "",
     		 score: 0,
     		 total_score:0, 
-    		 clickedCell:[]
+    		 clickedCell:[],
+    		 items:[],
+    		 isLoaded:false
 		}
 	}
+
+	
 
 	handleWord=event=>{
 		//alert('onchange');
@@ -120,6 +124,7 @@ class Boggle extends Component{
   		}
   		else
   		{
+  			
   			const {click_allow_cells}=this.state;
   			
   			//clear state array
@@ -132,6 +137,7 @@ class Boggle extends Component{
 		        	 click_allow_cells: joined
 		     	})
 
+  			
 		   //console.log(temp_click_allow_cells);
 		   //console.log(this.state.click_allow_cells);
 
@@ -148,25 +154,117 @@ class Boggle extends Component{
   		
 	} // end of handle keypress
 
-	handleSubmit=event=>{		
-		event.preventDefault();
+	isEmpty=obj=> {
+	    for(var key in obj) {
+	        if(obj.hasOwnProperty(key))
+	            return false;
+	    }
+	    return true;
+	}
+
+	handleSubmit=event=>{	
 		const { word_and_score, word, score, total_score, click_allow_cells, clickedCell } = this.state;
-    	const new_word_score = { [word]: [score] };
-	    this.setState(
-		      {
-		      	click_allow_cells:['r1c1', 'r1c2', 'r1c3', 'r1c4', 'r2c1', 'r2c2', 'r2c3', 'r2c4','r3c1', 'r3c2', 'r3c3', 'r3c4', 'r4c1', 'r4c2', 'r4c3', 'r4c4' ],
-		        word_and_score: { ...word_and_score, ...new_word_score },
-		        total_score:total_score+score,
-		        word: "",
-		        score: 0
-		      },
-		      () => console.log(this.state.word_and_score)
-	      );
-	    
-	    clickedCell.length=0;
-	    // alert(this.state.click_allow_cells);
-	    // alert(this.state.clickedCell);
+		event.preventDefault();
+		//validation
+		//var x= this.isEmpty(word_and_score);
+		//alert('Empty: '+ x);
+		//console.log(word_and_score);
+		
+		// if(x)  //if there is no any data in word_and_score object state
+		// {
+		// 	fetch('https://api.datamuse.com/words?ml='+word+'&max=4')
+	 // 		.then(res=>res.json())
+	 // 		.then(json=>{
+	 // 			this.setState({
+	 // 				isLoaded:true,
+	 // 				items: json
+	 // 			})
+	 // 		});
+	 // 		alert('isloaded : '+this.state.isLoaded);
+	 // 		//validation ends
+
+		// 	if(!this.state.isLoaded)
+		// 	{
+		// 		alert ('This is not a valid word. Please Try again');
+		// 		event.preventDefault();
+		// 	}
+		// 	else
+		// 	{
+		//     	const new_word_score = { [word]: [score] };
+		// 	    this.setState(
+		// 		      {
+		// 		      	click_allow_cells:['r1c1', 'r1c2', 'r1c3', 'r1c4', 'r2c1', 'r2c2', 'r2c3', 'r2c4','r3c1', 'r3c2', 'r3c3', 'r3c4', 'r4c1', 'r4c2', 'r4c3', 'r4c4' ],
+		// 		        word_and_score: { ...word_and_score, ...new_word_score },
+		// 		        total_score:total_score+score,
+		// 		        word: "",
+		// 		        score: 0
+		// 		      },
+		// 		      () => console.log(this.state.word_and_score)
+		// 	      );
+			    
+		// 	    clickedCell.length=0;
+		// 	    // alert(this.state.click_allow_cells);
+		// 	    // alert(this.state.clickedCell);
+		// 	}
+		// }
+		// else //if there is some data in word_and_score object state
+		// {
+			if(word_and_score.hasOwnProperty(word))
+			{	
+				alert('You have already entered this word. Please try with other.');
+				event.preventDefault();
+				word:"";
+			}
+			else
+			{
+				alert('Before Fetch');
+				this.FetchDataFromApi();					
+				alert('After Fetch');
+	 		//validation ends
+
+				if(!this.state.isLoaded)
+				{
+					alert ('This is not a valid word. Please Try again');
+					event.preventDefault();
+					word:"";
+				}
+				else
+				{
+			    	const new_word_score = { [word]: [score] };
+				    this.setState(
+					      {
+					      	click_allow_cells:['r1c1', 'r1c2', 'r1c3', 'r1c4', 'r2c1', 'r2c2', 'r2c3', 'r2c4','r3c1', 'r3c2', 'r3c3', 'r3c4', 'r4c1', 'r4c2', 'r4c3', 'r4c4' ],
+					        word_and_score: { ...word_and_score, ...new_word_score },
+					        total_score:total_score+score,
+					        word: "",
+					        score: 0
+					      },
+					      () => console.log(this.state.word_and_score)
+				      );
+				    
+				    clickedCell.length=0;
+				    // alert(this.state.click_allow_cells);
+				    // alert(this.state.clickedCell);
+				}
+			//}
+			}
+
+		
     } // end of handle submit
+
+    FetchDataFromApi = ()=> {
+    	alert('fetching');
+    	
+    	 fetch("https://api.datamuse.com/words?ml="+this.state.word+"&max=1")
+		 		.then(res=>res.json())
+	 			.then(json=>{
+	 			this.setState({
+	 				isLoaded:true,
+	 				items: json
+	 			})
+	 		}); 	
+		 		
+    } 
 
 	finalList = () => {
 	    const { word_and_score } = this.state;
@@ -213,6 +311,8 @@ class Boggle extends Component{
 	}; //end of final list
 
 	 componentDidMount() {
+	
+
         this.myInterval = setInterval(() => {
             const { seconds, minutes } = this.state
 
@@ -233,6 +333,8 @@ class Boggle extends Component{
                 }
             } 
         }, 1000)
+
+
     }
 
     componentWillUnmount() {
@@ -240,72 +342,82 @@ class Boggle extends Component{
     }
 
 	render(){
-		const { minutes, seconds } = this.state
+		const { minutes, seconds, error, isLoaded, items, click_allow_cells } = this.state
+				//alert(click_allow_cells);
 		return (
+
 			<div className="container"> 
 				<div className="header">
 					{ minutes === 0 && seconds === 0
 	                    ? <h1>Timeout!&nbsp; &nbsp; &nbsp; &nbsp;<button id="reloadBtn" onClick={() => window.location.reload(false)}>Click to play again!</button></h1>
 	                    : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
-	                }
+	                } 
+	                <ul>
+	                	{items.map(item=>(
+	                			<li>
+	                				Word: {item.word} and Score: {item.score}
+	                			</li>
+	                		))}
+	                </ul>
+	                
             	</div>
 				<form id="boggleForm" onSubmit={this.handleSubmit}>
 				<div class="divInClass">
 					<table className="table puzzleTable table-bordered" >
 						<tr>
 							<td>
-								<label id="r1c1" className="btn btn-warning">{this.state.r1c1}</label>
+								<label id="r1c1" className={`btn ${click_allow_cells.includes("r1c1") ? "btn-success" : "btn-default"}`}>{this.state.r1c1}</label>
 							</td>							
 							<td>
-								<label className="btn btn-success">{this.state.r1c2}</label>
+								<label id="r1c2" className={`btn ${click_allow_cells.includes("r1c2") ? "btn-success" : "btn-default"}`}>{this.state.r1c2}</label>
 							</td>
 							<td>
-								<label className="btn btn-info">{this.state.r1c3}</label>
+								<label id="r1c3" className={`btn ${click_allow_cells.includes("r1c3") ? "btn-success" : "btn-default"}`}>{this.state.r1c3}</label>
 							</td>
 							<td>
-								<label className="btn btn-secondary">{this.state.r1c4}</label>
+								<label id="r1c4" className={`btn ${click_allow_cells.includes("r1c4") ? "btn-success" : "btn-default"}`}>{this.state.r1c4}</label>
 							</td>
 						</tr>
 						<tr>
 							<td>
-							  	<label className="btn btn-secondary">{this.state.r2c1}</label>
+							  	<label id="r2c1" className={`btn ${click_allow_cells.includes("r2c1") ? "btn-success" : "btn-default"}`}>{this.state.r2c1}</label>
 							</td>							
 							<td>
-								<label className="btn btn-warning">{this.state.r2c2}</label>
+								<label id="r2c2" className={`btn ${click_allow_cells.includes("r2c2") ? "btn-success" : "btn-default"}`}>{this.state.r2c2}</label>
 							</td>
 							<td>
-								<label className="btn btn-success">{this.state.r2c3}</label>
+								<label id="r2c3" className={`btn ${click_allow_cells.includes("r2c3") ? "btn-success" : "btn-default"}`}>{this.state.r2c3}</label>
 							</td>
 							<td>
-								<label className="btn btn-info">{this.state.r2c4}</label>
+								<label id="r2c4" className={`btn ${click_allow_cells.includes("r2c4") ? "btn-success" : "btn-default"}`}>{this.state.r2c4}</label>
 							</td>
 						</tr>
 						<tr>
 							<td>
-							  	<label className="btn btn-info">{this.state.r3c1}</label>
+							  	<label id="r3c1" className={`btn ${click_allow_cells.includes("r3c1") ? "btn-success" : "btn-default"}`}>{this.state.r3c1}</label>
 							</td>							
 							<td>
-								<label className="btn btn-secondary">{this.state.r3c2}</label>
+								<label id="r3c2" className={`btn ${click_allow_cells.includes("r3c2") ? "btn-success" : "btn-default"}`}>{this.state.r3c2}</label>
 							</td>
 							<td>
-								<label className="btn btn-warning">{this.state.r3c3}</label>
+								<label id="r3c3" className={`btn ${click_allow_cells.includes("r3c3") ? "btn-success" : "btn-default"}`}>{this.state.r3c3}</label>
 							</td>
 							<td>
-								<label className="btn btn-success">{this.state.r3c4}</label>
+								<label id="r3c4" className={`btn ${click_allow_cells.includes("r3c4") ? "btn-success" : "btn-default"}`}>{this.state.r3c4}</label>
 							</td>
 						</tr>
 						<tr>
 							<td>
-							  	<label className="btn btn-success">{this.state.r4c1}</label>
+							  	<label id="r4c1" className={`btn ${click_allow_cells.includes("r4c1") ? "btn-success" : "btn-default"}`}>{this.state.r4c1}</label>
 							</td>							
 							<td>
-								<label className="btn btn-info">{this.state.r4c2}</label>
+								<label id="r4c2" className={`btn ${click_allow_cells.includes("r4c2") ? "btn-success" : "btn-default"}`}>{this.state.r4c2}</label>
 							</td>
 							<td>
-								<label className="btn btn-secondary">{this.state.r4c3}</label>
+								<label id="r4c3" className={`btn ${click_allow_cells.includes("r4c3") ? "btn-success" : "btn-default"}`}>{this.state.r4c3}</label>
 							</td>
 							<td>
-								<label className="btn btn-warning">{this.state.r4c4}</label>
+								<label id="r4c4" className={`btn ${click_allow_cells.includes("r4c4") ? "btn-success" : "btn-default"}`}>{this.state.r4c4}</label>
 							</td>
 						</tr>
 					</table>
@@ -321,13 +433,13 @@ class Boggle extends Component{
 				</form>
 			
         		{this.finalList()}
-        	
-				
+
         		
         	</div>
          
 		);
 	}
+
 }
 
 export default Boggle;
