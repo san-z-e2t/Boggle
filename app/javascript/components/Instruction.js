@@ -1,13 +1,18 @@
 import React from 'react'
 
 const Instruction=(props)=>{
-
+	const mode= props.difficultyLevel=="easy"?"simple":"complex"
 	return(
+			
 			<div className="innerInstr">
-				<div className="instrHeader"><h3>Here are the instructions to play Boggle game.</h3></div>
+				<div className="instrHeader"><h3>Instructions ({mode} mode)</h3></div>
 				<ol className="instrHeader_ul">
-					<li> Enter a word in the box below.</li>
-					<li>The letters are chosen among the letters in box highlighted green.</li>
+					<li> Enter a word in the box as you see in the board.</li>
+					
+					{props.difficultyLevel=="easy"?
+					<li>The letters are so chosen the final word must follow horizontal, vertical or diagonal path in any direction.</li>:
+					<li>Choose a letter in such a way that it must be a neighbour of previous letter. For your ease, clickable letters are highlighted green.</li>}
+					
 					<li>After entering a word, press on 'Submit'.</li>
 					<li>For each correct word, you will get score equal to the number of letters in the word.</li>
 					<li>Keep in mind, you cannot submit words after timeout.</li>
@@ -15,6 +20,7 @@ const Instruction=(props)=>{
 
 				</ol>
 			</div>
+
 		);
 }
 

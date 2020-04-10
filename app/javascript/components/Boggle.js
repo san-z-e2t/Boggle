@@ -648,15 +648,15 @@ class Boggle extends Component{
 				<div className="row reloadBtn" >
 						{this.state.game_status=="off"?			
 						<label className="px-5" onClick={this.startGame}>Play</label>
-						:<label className="px-5" onClick={this.endGame}>End</label> }
-						
+						:<label className="px-5" onClick={this.endGame}>End</label> }						
 						<label className="px-5 " onClick={this.refreshAlphabets}>Refresh Letters</label>
 						
-						{this.state.game_difficulty=="easy"?			
-						<label className="px-5 " onClick={this.changeDifficulty}>Switch to complex mode</label>
-						:<label className="px-5 " onClick={this.changeDifficulty}>Switch to simple mode</label>}
 				</div>
-				
+				<div>
+					<h1>Current Mode: {this.state.game_difficulty=="easy"?"simple":"complex"} </h1>
+					
+					<a href="" className="px-2 " onClick={this.changeDifficulty}>Switch mode</a>
+				</div>
 				<div class="row">
 				<div className="pull-left boardDiv">
 
