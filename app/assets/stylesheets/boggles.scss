@@ -14,18 +14,22 @@
   	border-radius: 20px 2px;
   	background-color: #4CAF50;
 	  color: white;
-	  padding: 7px 7px;
+	  /*padding: 7px 7px;*/
 	  text-align: center;
 	  display: inline-block;
-	  font-size: 20px !important;
+	  /*font-size: 20px !important;*/
 	  margin-bottom: 10px;
 	 
 }
 
+.reloadBtn a{
+	color:white !important;
+}
+
 .container{
-	padding:0.01em 16px;
+	padding:0.01em 30px;
 	align:center;
-	background-color: lightyellow;
+	background-color: #dde9e9c7;
 
 }
 .container:after, container:before
@@ -33,10 +37,12 @@
 	content:"";
 	display:table;
 	clear:both;
+	/*width:75%;*/
 }
 .header{
-	background-color: #d2d7d0;
+	/*background-color: #d2d7d0;*/
 	text-align:center;
+	border-radius: 5px;
 }
 #boggleForm, #boggleForm .divInClass {
 	display: table;
@@ -48,17 +54,42 @@ div{
 	margin-top: 10px !important;
 }
 
+
+
 .txtWord{
 	border-color: burlywood;
 	border-radius: 5px 4px;
+	line-height: 20px;
 }
 .scoreTable{
 	line-height: 10px;
-	width:50%;
+	width:80%;
 	margin:auto;
 }
-.boardDiv, .instrDiv{
-	width:45% !important;
-	margin:auto;
+.boardDiv{
+	width:30% !important;
+	/*margin:auto;*/
+}
+
+.txt p{
+	font-color:black !important;
+}
+.txtDiv{
+	width:30%;
+}
+
+.instrDiv{
+	width:40% !important;
+	/*margin:auto;*/
+}
+
+
+.footer{
+	margin-top: 5px;
+	background-color: rgb(33, 37, 41);
+	border-radius: 5px;
+}
+.timeInfo{
+	height: 50px !important;
 }
 

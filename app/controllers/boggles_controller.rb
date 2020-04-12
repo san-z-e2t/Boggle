@@ -5,7 +5,7 @@ class BogglesController < ApplicationController
 	
   def index
   	
-       # flash[:alert] = "User not found."
+      
   end
 
   def  gather_alphabets
@@ -17,28 +17,19 @@ class BogglesController < ApplicationController
   	
   end
 
-  def validate_word
-  	require 'json'
-      #result = helpers.validate_word
-     
-
-		result = {
-		  'a' => 1,
-		  'b' => [2,3]
-		}
-      render json: {
-        data: result
-    }
-     
-  end
-
   # def validate_word
-  # 		file=File.read(File.join(Rails.root, 'app','javascript','components','data', 'words.json'))
-  # 		#file = File.read('./javascript/components/data/words.json')
-  # 		dic_words = JSON.parse(file)
-  # 		 render json: {
-  #     data: dic_words
+  # 	require 'json'
+  #     #result = helpers.validate_word
+     
+
+		# result = {
+		#   'a' => 1,
+		#   'b' => [2,3]
+		# }
+  #     render json: {
+  #       data: result
   #   }
-  # end
+     
+  # end 
   
 end

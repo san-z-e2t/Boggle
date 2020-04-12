@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from "react-dom";
 import {Router,Switch} from 'react-router-dom'
 import Instruction from './Instruction'
+import Footer from './Footer'
 import axios from 'axios'
 import WordData from './data/words.json'
 
@@ -41,7 +42,8 @@ class Boggle extends Component{
     		 clickedCell:[],
     		 wordList:obj,    //this assigns the content of json file to state wordList
 			 game_difficulty:"easy",
-			 game_status:"off"
+			 game_status:"off",
+			 show_time_info:"no"
 		}
 	}
 	
@@ -51,6 +53,7 @@ class Boggle extends Component{
 		if(this.state.game_difficulty=="easy")
 		{
 			this.setState({
+
 				game_difficulty:"difficult",
 				click_allow_cells:['r1c1', 'r1c2', 'r1c3', 'r1c4', 'r2c1', 'r2c2', 'r2c3', 'r2c4','r3c1', 'r3c2', 'r3c3', 'r3c4', 'r4c1', 'r4c2', 'r4c3', 'r4c4' ]
 			})
@@ -62,6 +65,7 @@ class Boggle extends Component{
 			})
 		}
 		this.setState({
+			show_time_info:"no",
 			game_status:"off",
 			minutes:0,
 			seconds:0,
@@ -77,6 +81,7 @@ class Boggle extends Component{
 	endGame=(event)=>{
 		event.preventDefault();
 		this.setState({
+			show_time_info:"no",
 			game_status:"off",
 			minutes:0,
 			seconds:0
@@ -87,6 +92,7 @@ class Boggle extends Component{
 	startGame=(event)=>{
 		event.preventDefault();
 		this.setState({
+			show_time_info:"yes",
 			game_status:"on",
 			minutes:1,
 			seconds:0,
@@ -527,12 +533,15 @@ class Boggle extends Component{
 
 		          <table className="scoreTable table table-bordered table-condensed">
 		          <caption>Score Board</caption>
+		          <thead className="thead-dark">
 		          <tr>
 		          	
 		          	   <th> Word </th>
 		          	   <th> Score </th>
 		          	
 		          </tr>
+		          </thead>
+		          <tbody>
 		            {list}
 		            <tr>
 			            <td>
@@ -542,6 +551,7 @@ class Boggle extends Component{
 		            		{this.state.total_score}
 			            </td>
 			         </tr>
+			         </tbody>
 		          </table>
 		        ) : (
 		          ""
@@ -552,6 +562,9 @@ class Boggle extends Component{
 
 //this function is triggered on clicking 'refresh alphabets'
 	refreshAlphabets=(event)=>{
+		this.setState({
+			show_time_info:"no"
+		});
 		event.preventDefault();
 		const {r1c1,r1c2,r1c3,r1c4,r2c1,r2c2,r2c3,r2c4,r3c1,r3c2,r3c3,r3c4,r4c1,r4c2,r4c3,r4c4}=this.state;
 		
@@ -597,7 +610,8 @@ class Boggle extends Component{
 //this method is called automatically after all the elements of the page are rendered
 	 componentDidMount() {
 	 	const {r1c1,r1c2,r1c3,r1c4,r2c1,r2c2,r2c3,r2c4,r3c1,r3c2,r3c3,r3c4,r4c1,r4c2,r4c3,r4c4}=this.state;
-		
+
+
 		// here axios has been used for fetching letters in the game board initially
 		axios.get('/gather_alphabets.json')		
             .then(response =>{
@@ -633,34 +647,36 @@ class Boggle extends Component{
    
 // render function displays the HTML markup or JSX syntax.
 	render(){
-		const { minutes, seconds, error, isLoaded, click_allow_cells } = this.state
+		const { minutes, seconds, error, isLoaded, click_allow_cells, show_time_info } = this.state
 				//alert(click_allow_cells);
 		return (
 
 			<div className="container"> 
 				<div className="header">
-					<h1>Welcome to Boggle Game</h1> { minutes === 0 && seconds === 0
-	                    ? <h3>Timeout!</h3>
-	                    : <h3>Time Remaining- {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h3>} 	                
+					<h1>Welcome to Boggle World</h1> 
             	</div>
+            		                
 				<form id="boggleForm" onSubmit={this.handleSubmit}>
 				<div className="divInClass">
 				<div className="row reloadBtn" >
 						{this.state.game_status=="off"?			
-						<label className="px-5" onClick={this.startGame}>Play</label>
-						:<label className="px-5" onClick={this.endGame}>End</label> }						
-						<label className="px-5 " onClick={this.refreshAlphabets}>Refresh Letters</label>
-						
-				</div>
-				<div>
-					<h1>Current Mode: {this.state.game_difficulty=="easy"?"simple":"complex"} </h1>
+						<a href="" id="lblPlay" className="px-5" onClick={this.startGame}>Play</a>
+						:<a  href="" id="lblEnd" className="px-5" onClick={this.endGame}>End</a> }						
+						<a  href=""id="lblRefresh" className="px-5 " onClick={this.refreshAlphabets}>Refresh Letters</a>
+					<label>Mode: {this.state.game_difficulty=="easy"?"simple":"complex"} </label>
 					
-					<a href="" className="px-2 " onClick={this.changeDifficulty}>Switch mode</a>
+					<a id="switchMode" href="" className="px-2 " onClick={this.changeDifficulty}>(Switch)</a>	
+					{show_time_info=="yes" && minutes === 0 && seconds === 0
+		                    ? <label className="px-5 ">Timeout!</label>:""}
+		            {show_time_info=="yes" && (minutes != 0 || seconds != 0)
+		                   ?<label className="px-5 ">Time Remaining- {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</label>
+		                   :""} 
 				</div>
-				<div class="row">
+				
+				<div className="row">
 				<div className="pull-left boardDiv">
 
-					<table className="table puzzleTable table-bordered" >
+					<table className=" table table-condensed puzzleTable table-bordered" >
 						<tr>
 							<td>
 								<label id="r1c1" className={`btn ${click_allow_cells.includes("r1c1") ? "btn-success" : "btn-default"}`}>{this.state.r1c1}</label>
@@ -718,6 +734,9 @@ class Boggle extends Component{
 							</td>
 						</tr>
 					</table>
+					
+				</div>
+				<div className="txtDiv">
 					<div>
 						<p>Type a word as you see in above table  &nbsp;</p>
 						<input type="text" disabled={minutes === 0 && seconds === 0} className="txtWord" value={this.state.word} onKeyPress ={this.handleKeyPress} onChange={this.handleWord}/>
@@ -725,20 +744,23 @@ class Boggle extends Component{
 					<div>
 						<button type="submit" disabled={minutes === 0 && seconds === 0} className="btn btn-primary">Submit</button>
 					</div>
+					{this.finalList()}
 				</div>
 
-				<div  className=" pull-right instrDiv"><Instruction difficultyLevel={this.state.game_difficulty}/></div>
+				<div  className="pull-right instrDiv"><Instruction difficultyLevel={this.state.game_difficulty}/></div>
 				
 				</div> 
 					
 				</div>
 				</form>
 			
-        		{this.finalList()}
         		
         		
+        		<div className="footer">
+        			<Footer />
+        		</div>
         	</div>
-         
+         	
 		);
 	}
 

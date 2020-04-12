@@ -15,6 +15,20 @@
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "babel-jest": "^25.3.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^25.3.0",
+    "regenerator-runtime": "^0.13.5",
     "webpack-dev-server": "^3.10.3"
+  },
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "jest": {
+    "roots": [
+      "test/javascript"
+    ]
   }
 }
