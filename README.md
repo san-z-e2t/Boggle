@@ -1,69 +1,69 @@
-# Boggle based on React and Ruby on Rails
+Boggle based on React and Ruby on Rails
 
-Boggle is one of the famous word games. This project uses React at the front end while Ruby on Rails at the backend. Bootstrap has been used for beautification of UI.
+	Boggle is one of the famous word games. This project uses React at the front end while Ruby on Rails at the backend. 
+Bootstrap has been used for beautification of UI.
 
 Installation
-This project is developed in Windows OS.
+	This project is developed in Windows OS.
 
-To download or clone, use the following URL:
-https://github.com/san-z-e2t/Boggle.git
+	To download or clone, use the following URL:
+	https://github.com/san-z-e2t/Boggle.git
 
 Install various required backend dependicies. For this, copy the following lines to the Gemfile:
-gem 'jquery-rails'
-gem 'font-awesome-sass', '~> 5.12.0'
-gem 'bootstrap', '~> 4.4.1'
-gem 'rails', '~> 5.1.7'
-gem 'webpacker'
+	gem 'jquery-rails'
+	gem 'font-awesome-sass', '~> 5.12.0'
+	gem 'bootstrap', '~> 4.4.1'
+	gem 'rails', '~> 5.1.7'
+	gem 'webpacker'
 
 Install these gems using following command in the project directory through terminal:
-$ bundle install
+	$ bundle install
 
-Following frontend dependencies are required:babel/preset-react
-babel/preset-react
-rails/webpacker
-axios
-bootstrap
-react
-react-dom
-react-router
-react-router-dom
-jest
-enzyme
-enzyme-adapter-react-16
-webpack-dev-server
+Following frontend dependencies are required:
+	babel/preset-react
+	rails/webpacker
+	axios
+	bootstrap
+	react
+	react-dom
+	react-router
+	react-router-dom
+	jest
+	enzyme
+	enzyme-adapter-react-16
+	webpack-dev-server
 
 Install these using yarn command through terminal:
-$ yarn (*****)
-
+	$ yarn (*****)
 
 Testing
 
-This project has used default testing framework defined by rails.
+	This project has used default testing defined by rails framework.
 
-For testing functional and integration testing, use the following command in the terminal:
+	For testing functional and integration testing, use the following command in the terminal:
 
-$ rake 
+		$ rake 
 
-For frontend testing, Jest, Babel and Enzyme are used
-Install them using yarn in the terminal as belows:
+	For frontend testing, Jest, Babel and Enzyme are used
+	Install them using yarn in the terminal as belows:
 
-Setup Jest  
-$ yarn add --dev jest
+	Setup Jest  
+		$ yarn add --dev jest
 
-Setup Babel
-This step is required to have import directives working.
-$ yarn add --dev babel-jest regenerator-runtime
+	Setup Babel
+		This step is required to have import directives working.
+		$ yarn add --dev babel-jest regenerator-runtime
 
-Enzyme
-Enzyme is a JavaScript testing utility for React. Shallow utility helps us in rendering a component and allowing us access to the class methods/state of the component.
-$ yarn add --dev enzyme enzyme-adapter-react-16
+	Enzyme
+		Enzyme is a JavaScript testing utility for React. Shallow utility helps us in rendering a component and allowing us access to the class methods/state of the component.
+		$ yarn add --dev enzyme enzyme-adapter-react-16
 
-For frontend testing, use the following command in the terminal:
-$ yarn test
+	For frontend testing, use the following command in the terminal:
+		$ yarn test
 
 Starting rails server:
-Rails server can be started by using following command in the terminal:
-$ rails s
+	Rails server can be started by using following command in the terminal:
+		$ rails s
 
 Instructions to play Boggle game:
 
@@ -79,4 +79,4 @@ This game has been designed in two complexity mode: Simple and Complex. Instruct
 8. As the timer stops, no word can be submitted; player can only view the score obtained.
 
 Disclaimer:
-For validation of existence of word, this project has used json file with collection of 263,533 words.
+	For validation of existence of word, this project has used json file with collection of 263,533 words.
