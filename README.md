@@ -87,5 +87,5 @@ Disclaimer:
 	For validation of existence of word, this project has used json file with collection of 263,533 words.
 	
 Preview:
-![Simple mode screenshot](https://github.com/san-z-e2t/Boggle/blob/master/Simple_Mode.JPG)
-![Complex mode screenshot](https://github.com/san-z-e2t/Boggle/blob/master/Complex_mode.JPG)
+![Simple mode screenshot](https://github.com/san-z-e2t/Boggle/blob/master/app/assets/images/Simple_Mode.JPG)
+![Complex mode screenshot](https://github.com/san-z-e2t/Boggle/blob/master/app/assets/images/Complex_mode.JPG)
