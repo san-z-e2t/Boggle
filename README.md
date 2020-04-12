@@ -9,17 +9,20 @@ Installation
 	To download or clone, use the following URL:
 	https://github.com/san-z-e2t/Boggle.git
 
-Install various required backend dependicies. For this, copy the following lines to the Gemfile:
+Install various required backend dependicies. For this, add following gems to the Gemfile:
+
 	gem 'jquery-rails'
-	gem 'font-awesome-sass'
-	gem 'bootstrap'
-	gem 'rails'
+	gem 'font-awesome-sass'	
+	gem 'bootstrap'	
+	gem 'rails'	
 	gem 'webpacker'
 
 Install these gems using following command in the project directory through terminal:
+
 	$ bundle install
 
 Following frontend dependencies are required:
+
 	babel/preset-react
 	rails/webpacker
 	axios
@@ -34,6 +37,7 @@ Following frontend dependencies are required:
 	webpack-dev-server
 
 Install these using yarn command through terminal:
+
 	$ yarn (*****)
 
 Testing
@@ -62,6 +66,7 @@ Testing
 		$ yarn test
 
 Starting rails server:
+
 	Rails server can be started by using following command in the terminal:
 		$ rails s
 
