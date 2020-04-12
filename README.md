@@ -11,9 +11,9 @@ Installation
 
 Install various required backend dependicies. For this, copy the following lines to the Gemfile:
 	gem 'jquery-rails'
-	gem 'font-awesome-sass', '~> 5.12.0'
-	gem 'bootstrap', '~> 4.4.1'
-	gem 'rails', '~> 5.1.7'
+	gem 'font-awesome-sass'
+	gem 'bootstrap'
+	gem 'rails'
 	gem 'webpacker'
 
 Install these gems using following command in the project directory through terminal:
@@ -82,5 +82,5 @@ Disclaimer:
 	For validation of existence of word, this project has used json file with collection of 263,533 words.
 	
 Preview:
-![Screenshot](Simple_Mode.jpg)
-![Screenshot](Complex_mode.jpg)
+![Simple mode screenshot](https://github.com/san-z-e2t/Boggle/blob/master/Simple_Mode.JPG)
+![Complex mode screenshot](https://github.com/san-z-e2t/Boggle/blob/master/Complex_mode.JPG)
