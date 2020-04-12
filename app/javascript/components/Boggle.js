@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from "react-dom";
 import {Router,Switch} from 'react-router-dom'
 import Instruction from './Instruction'
-import Footer from './Footer'
+
 import axios from 'axios'
 import WordData from './data/words.json'
 
@@ -753,12 +753,9 @@ class Boggle extends Component{
 					
 				</div>
 				</form>
-			
+			      		
         		
         		
-        		<div className="footer">
-        			<Footer />
-        		</div>
         	</div>
          	
 		);

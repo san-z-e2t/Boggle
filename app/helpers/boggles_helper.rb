@@ -15,18 +15,6 @@ module BogglesHelper
 			end
 			  alphabets   
  	end
-
- 	def validate_word
- 		require 'json'
- 		# byebug
-	    # word = params[:word]
-	    # url = 'https://api.datamuse.com/words?ml="+'+word+'+"&max=3'	    
-	    # request = HTTParty.get(url)
-	    # request.success? ? word : ''
-
-	    file = File.read(File.join(Rails.root, 'app','javascript','components','data', 'words.json'))
-	    json_content=JSON.parse(file)
-	    json_content
-  	end
+ 	
 
 end

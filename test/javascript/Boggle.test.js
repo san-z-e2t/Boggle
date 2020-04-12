@@ -9,20 +9,23 @@ import Boggle from '../../app/javascript/components/Boggle';
 
 
 describe('<Boggle />', () => {
-
+	//this tests whether Boggle component is rendered within div without crashing
 	it('renders without crashing', () => {
 	  const div = document.createElement('div');
 	  ReactDOM.render(<Boggle />, div);
 	});
 
+	//this checks whether a button from Boggle component is successfully rendered
 	it('renders a button', () => {
 	    const component = shallow(<Boggle />);
 	    expect(component.find('button').length).toEqual(1);
 	  });
-	//loginComponent.setState({ error: true });
-	it('renders a button', () => {
+	
+	//this checks whether an input is submitted successfully
+	it('should submit successfully', () => {
 		const obj=require("../../app/javascript/components/data/words.json");
 	    const component = shallow(<Boggle />);
+	    //setting all the required states for the component
 	    component.setState({
 	    	minutes: 0,
         	seconds: 0,
@@ -54,21 +57,37 @@ describe('<Boggle />', () => {
 			 game_status:"off"
 	    });
 	    const fakeEvent = { preventDefault: () => console.log('preventDefault') }; 
-	    component.instance().startGame(fakeEvent);
-	    expect(component.state('game_status')).toEqual('on');	   
-	    component.find('input').text("OF");
-	     const input = component.find('input');
-	    input.simulate("change", { target: { value: "OF" } });
-	    component.instance().handleSubmit(fakeEvent);	
-	    const scoreDiv = component.find('div.scoreDiv');
-   		expect(scoreDiv).toHaveLength(1);   
-   		const scoreTable = scoreDiv.find('table');
-   		expect(scoreTable).toHaveLength(1); 
-   		const row = scoreTable.find('tr');
-   		expect(row).toHaveLength(3); 
+	    component.instance().startGame(fakeEvent);    // this simulates the 'play' button in the component
+	    expect(component.state('game_status')).toEqual('on');	//this checks the game status after play button is clicked  
+	    //component.find('input').text("OF");
+	     const input = component.find('input'); // this finds the input tag
+	    input.simulate("change", { target: { value: "OF" } });  //this enters value 'OF' to the input box
+	    component.instance().handleSubmit(fakeEvent);	// this simulates the 'Submit' button 
+	    const scoreDiv = component.find('div.scoreDiv');  // this finds the 'scoreDiv' div
+   		expect(scoreDiv).toHaveLength(1);    //this ensures that there should be one div with className scoreDiv
+   		const scoreTable = scoreDiv.find('table'); // this finds the table within scoreDiv
+   		expect(scoreTable).toHaveLength(1);  //this ensures that there should be one table within scoreDiv
+   		const row = scoreTable.find('tr'); //this finds the tr in the table
+   		expect(row).toHaveLength(3); //this ensures there should be three tr within the scoreTable
    		const lastRowColumn = row.last().find('td').map(column => column.text())
-   		expect(lastRowColumn.length).toBe(2)// since we have 2 td
-     	
+   		expect(lastRowColumn.length).toBe(2)  // this ensures there are two td in the last tr of scoreTable
+     	//expected output
+     	// <table>
+     	//	<tr>
+     	//		<td></td>
+     	//		<td></td>
+     	//	</tr>
+     	//	<tr>
+     	//		<td></td>
+     	//		<td></td>
+     	//	</tr>
+     	//	<tr>
+     	//		<td></td>
+     	//		<td></td>
+     	//	</tr>
+     	// </table>
+
+
 	  });
 
 });
