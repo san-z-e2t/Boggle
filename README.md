@@ -80,3 +80,7 @@ This game has been designed in two complexity mode: Simple and Complex. Instruct
 
 Disclaimer:
 	For validation of existence of word, this project has used json file with collection of 263,533 words.
+	
+Preview:
+![Screenshot](Simple_Mode.jpg)
+![Screenshot](Complex_mode.jpg)
